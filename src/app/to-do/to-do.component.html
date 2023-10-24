@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 lateral">
+        <mat-card>
+          <mat-card-content>
+            <mat-form-field class="tamanho" appearance="outline" novalidate [formGroup]="form">
+              <mat-label>Digite a Tarefa</mat-label>
+              <input matInput id="" placeholder="Digite a Tarefa" formControlName="tarefa">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="Salvar()">Adicionar</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  
+      <div class="col-md-9 overflow-y-scroll">
+        <div class="container mx-auto p-2">
+          <div class="row p-2">
+            <div class="col-lg-12">
+              <h1 id="h1">KANBAN</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div cdkDropList #afazer="cdkDropList" [cdkDropListConnectedTo]="[realizando,finalizados]"
+              [cdkDropListData]="aFazer" class="col-lg-4" (cdkDropListDropped)="drop($event)">
+              <ul class="list-group ">
+                <li class="list-group-item list-group-item active">
+                  <h3>A FAZER</h3>
+                </li>
+                <li class="list-group-item fs-4 p-3" *ngFor="let p of aFazer " cdkDrag>
+                  {{p.tarefa}}
+                </li>
+              </ul>
+            </div>
+  
+            <div cdkDropList #realizando="cdkDropList" [cdkDropListData]="fazendo"
+              [cdkDropListConnectedTo]="[finalizados,afazer]" (cdkDropListDropped)="drop($event)" class="col-lg-4">
+              <ul class="list-group">
+  
+                <li class="list-group-item active">
+                  <h3>FAZENDO</h3>
+                </li>
+  
+                <li class="list-group-item fs-4 p-3" *ngFor="let p of fazendo" cdkDrag>
+                  {{p.tarefa}}
+                </li>
+              </ul>
+            </div>
+  
+            <div cdkDropList #finalizados="cdkDropList" [cdkDropListData]="finalizado"
+              [cdkDropListConnectedTo]="[realizando,afazer]" (cdkDropListDropped)="drop($event)" class="col-lg-4">
+              <ul class="list-group">
+                <li class="list-group-item active">
+                  <h3>FINALIZADOS</h3>
+                </li>
+  
+                <li class="list-group-item fs-4 p-3" *ngFor="let p of finalizado" cdkDrag>
+                  {{p.tarefa}}
+                </li>
+              </ul>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
